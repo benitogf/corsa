@@ -1,0 +1,56 @@
+.curtain {
+  @include transition(all, 0.7s, ease-out);
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.88) none repeat scroll 0% 0%;
+  top: -150%;
+  left: 0px;
+}
+
+.curtain section {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  background: rgb(54, 54, 54) none repeat scroll 0% 0%;
+  height: 95%;
+  margin: 0px auto;
+  position: relative;
+}
+
+.curtain section .curtain_cont {
+  width: 80%;
+  margin-top: 3em;
+}
+
+.curtain section .curtain_close {
+  top: 0.3em;
+  right: 0.3em;
+  position: absolute;
+  color: #CCC;
+  padding: 0.3em;
+  font-size: 1.3em;
+  &:hover {
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.curtain section .curtain_cont input,
+.curtain section .curtain_cont select {
+   border: medium none;
+   color: $text-color;
+   background-color: #1e1e1e;
+   padding: 0.3em;
+}
+
+.curtain section .curtain_cont button {
+  height: 1.6em;
+  border: medium none;
+  width: 2em;
+  color: rgb(30, 30, 30);
+  background-color: rgb(255, 255, 255);
+  font-size: 1.3em;
+  cursor: pointer;
+}

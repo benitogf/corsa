@@ -1,0 +1,104 @@
+$text-color: rgba(255,255,255,0.9);
+$back-color: rgba(0,0,0,0.79);
+//settings menu
+$navmenu-width: 15%;
+$navmenu-height: 3em;
+$navmenu-bar-color: rgba(47, 47, 47, 0.9);
+$navmenu-color: #292929;
+$navmenu-hover-color: #4d4d4d;
+$navmenu-text-color: rgba(255,255,255,0.5);
+$navmenu-text-hover-color: $text-color;
+$navmenu-drop-color: #353333;
+$navmenu-drop-hover-color: #5d5d5d;
+$navmenu-drop-text-color: $navmenu-text-color;
+$navmenu-text-size: 0.95em;
+$navmenu-text-weight: 300;
+//settings respond-to
+$break-small: 420px;
+$break-medium: 740px;
+$break-large: 944px;
+$break-xlarge: 1200px;
+
+@import 'mixins';
+@include meyer-reset;
+@import 'menu';
+@include scrollbar(.5em, $navmenu-hover-color);
+@import 'loader';
+@import 'curtain';
+
+/* tags
+ * --------------------------------------- */
+@import 'wubi';
+
+/* Custom CSS
+ * --------------------------------------- */
+.hidden {
+  display: none;
+}
+body, html {
+  width: 100%;
+}
+body{
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	color: $text-color;
+	background-color: $back-color;
+}
+canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 0;
+}
+#content {
+  opacity: 0;
+  z-index: 1;
+}
+.content {
+  @include respond-to(handhelds) { padding: $navmenu-height $navmenu-height/2; }
+  @include respond-to(small-screens) { padding: $navmenu-height $navmenu-height/2; }
+  @include respond-to(medium-screens) { padding: $navmenu-height $navmenu-height/2; }
+  @include respond-to(wide-screens) { padding:0; margin: $navmenu-height*2 auto; max-width: 55em; }
+  @include respond-to(xwide-screens) { padding:0; margin: $navmenu-height*2 auto; max-width: 70em; }
+}
+.content h1 {
+  font-size: 1.5em;
+  text-align: center;
+  padding-top: 2.5em;
+}
+.content p {
+  font-size: 0.8em;
+  text-align: center;
+  padding-bottom: 1em;
+  padding-top: 0.5em;
+}
+.content h3 {
+  font-size: 1.2em;
+  text-align: center;
+  padding-bottom: 1em;
+  padding-top: 0.5em;
+}
+.content table {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.content_editable {
+   font-size: 1em;
+   background-color: #1e1e1e;
+   padding: 1em;
+   margin-top: 0.5em;
+   display: inherit;
+ }
+
+.content_editable img {
+   width: 100%;
+   height: auto;
+}
+
+table, th, td
+{
+padding: 5px;
+border: 1px solid white;
+}

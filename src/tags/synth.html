@@ -1,0 +1,24 @@
+<synth>
+  <script>
+   var self = this;
+   self.check = (render && sound);
+   if (self.check)
+      render.target = require('../lib/synth');
+   self.init = function(){
+     if (self.check) {
+        render.init();
+        render.target.init(60, {x:11, z:8});
+        app.hideLoader();
+        } else {
+           console.log('no support for webgl or webaudio');
+           app.hideLoader();
+           }
+   }
+   self.on('mount', self.init);
+   self.on('unmount', self.close);
+   riot.route(function(path) {
+     if (path !== 'synth')
+        self.unmount(true);
+   })
+  </script>
+</synth>

@@ -1,0 +1,121 @@
+<wubi>
+  <!-- http://concert.arte.tv/fr/gustavo-dudamel-dirige-la-turangalila-symphonie-dolivier-messiaen -->
+  <div class="curtain">
+     <section>
+       <i class="curtain_close" onclick="{ modClose }">X</i>
+       <div class="curtain_cont">
+         <i class="symbol_char">{ symbol }</i>
+         <div class="symbol_field">Wubi: <span contentEditable="true" class="content_editable">{ wubi }</span></div>
+         <div class="symbol_field">Pinyin: <span contentEditable="true" class="content_editable">{ pinyin }</span></div>
+         <div class="symbol_field">Use Modes:<br>
+            <div each={ sm, i in modes } show="{ (useModes[sm].length > 0) }" class="useMode">{ sm }
+               <ul>
+                 <li each={ useModes[sm] }>{ value }</li>
+               </ul>
+            </div>
+         </div>
+         <div class="newMode">
+           <button class="toggleNewMode" onclick="{ toggleNewMode }">></button>
+           <form class="newModeForm">
+              <select>
+                <option each={ sm, i in modes }  value"{ sm }">{ sm }</option>
+              </select>
+              <input type="text">
+              <select>
+                <option each={ ln, i in langs }  value"{ ln }">{ ln }</option>
+              </select>
+              <button>+</button>
+           </form>
+         </div>
+         <div class="symbol_field">Description: <span contentEditable="true" class="content_editable">{ description }</span></div>
+       </div>
+     </section>
+  </div>
+  <form class="search">
+    <input placeholder="Wubi input" type="text" tabindex='0' onkeyup="{ search }">
+  </form>
+  <div class="s_fi">
+    <i each={ symbols } title="{ wubi }" onclick="{ details }">{ character }</i>
+  </div>
+<script>
+    var self = this;
+    self.nextSearchTime = Date.now();
+    self.lastSearchText = '';
+    self.limit = {
+      start: 0,
+      end: 7000
+    };
+    self.langs = ['EN', 'ES'];
+    toggleNewMode(e){
+      var current = $('.newModeForm').css('opacity');
+      $('.toggleNewMode').html((current === '0') ? '<' : '>');
+      $('.newModeForm').css('opacity', (current === '0') ? '1' : '0');
+    }
+    search(e) {
+      if (typeof self.nextSearch === 'number')
+         clearTimeout(self.nextSearch);
+      if (Date.now() >= self.nextSearchTime && e.target.value !== self.lastSearchText) {
+         self.getSymbols({ search: e.target.value, limit: self.limit });
+         } else {
+           self.nextSearch = setTimeout(function(){
+              if (Date.now() >= self.nextSearchTime && e.target.value !== self.lastSearchText) {
+                 self.getSymbols({ search: e.target.value, limit: self.limit });
+                 }
+           }, 3000);
+         }
+    }
+    modClose(e) {
+      $('.curtain').css('top', '-150%');
+    }
+    details(e) {
+      //e.target.innerHTML
+      //e.target.title
+      app.showLoader();
+      var useModes = {verb: [], adverb: [], noun: [], adjective: [], name: []};
+      var useModes_data = [{type: 'noun', value: 'painting', lang: 'EN'}, {type: 'noun', value: 'picture', lang: 'EN'}, {type: 'verb', value: 'draw', lang: 'EN'}];
+      useModes_data.forEach(function(sm){
+        useModes[sm.type].push(sm);
+      });
+      self.update({
+        symbol: '画',
+        wubi: 'g l,g l b,g l b j',
+        pinyin: 'Huà',
+        description: '(no description)',
+        useModes: useModes,
+        modes: Object.keys(useModes)
+      });
+      $('.curtain').css('top', '0');
+      app.hideLoader();
+    }
+    self.getSymbols = function(limit){
+      if (limit.search !== '') {
+         //app.showLoader();
+         app.socket.emit('mandarin:keys', limit, function (data) {
+            //self.title = 'Symbols ('+data.length+')';
+            console.log('Symbols ('+data.length+')');
+            console.log(limit.search);
+            self.update({ symbols: data });
+            //app.hideLoader();
+         });
+      } else {
+        self.update({ symbols: [] });
+      }
+      self.lastSearchText = limit.search;
+      self.nextSearchTime = Date.now()+3000;
+    }
+    self.init = function(){
+      if (!app.socket) {
+        setTimeout(self.init, 500);
+      } else {
+        app.hideLoader();
+        //self.getSymbols({ search: '', limit: self.limit });
+      }
+    }
+    self.on('mount', self.init);
+    riot.route(function(path) {
+      if (path !== 'symbols') {
+         self.unmount(true)
+      }
+    })
+</script>
+</wubi>

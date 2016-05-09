@@ -1,0 +1,39 @@
+//http://timpietrusky.com/advanced-checkbox-hack
+//body { -webkit-animation: bugfix infinite 1s; }
+//@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-cont {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:rgba(30,30,30,0.8);
+  overflow: hidden;
+  z-index: 6;
+}
+.loading-cont .loading {
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:after {
+    content: '';
+    background-image: url('../img/logo.png');
+    height: 8em;
+    width: 8em;
+    animation:loading 1s 0s infinite ease-in-out;
+  }
+}

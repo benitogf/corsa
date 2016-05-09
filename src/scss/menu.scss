@@ -1,0 +1,265 @@
+header.navmenu {
+  opacity: 0;
+  font-size: $navmenu-text-size;
+  font-weight: $navmenu-text-weight;
+  background-color: $navmenu-bar-color;
+  z-index: 1;
+  position: relative;
+  //@include transition(all, 1s, ease-in-out);
+}
+
+header .navToggle img {
+  width: inherit;
+  vertical-align: middle;
+}
+
+#navToggle, header .multiCheck {
+  display: none;
+}
+
+header label.navToggle {
+  line-height: $navmenu-height;
+  text-align: center;
+  z-index: 1;
+  cursor: pointer;
+  display: inline-block;
+  background: $navmenu-color;
+  color: $navmenu-text-color;
+  width: $navmenu-width;
+  @include transition(all, 0.2s, ease-in-out);
+  // @include respond-to(handhelds) { width: 100%; }
+  // @include respond-to(small-screens) { width: 100%; }
+  // @include respond-to(medium-screens) { width: 100%; }
+  // @include respond-to(wide-screens) { display: none; }
+  // @include respond-to(xwide-screens) { display: none; }
+  @include noselect();
+  &:hover {
+    background: $navmenu-hover-color;
+    color: $navmenu-text-hover-color;
+  }
+}
+
+#navToggle:checked ~ header nav.navmenu {
+  left: -40%;
+  // @include respond-to(handhelds) { top: -200%; left: 0; }
+  // @include respond-to(small-screens) { left: -200%;}
+  // @include respond-to(medium-screens) { left: -100%; }
+  // @include respond-to(wide-screens) { left: 0;}
+  // @include respond-to(xwide-screens) { left: 0;}
+}
+
+header .multi input:checked ~ .dropdown li {
+    max-height: 100%;
+}
+header .multi input:checked ~ .dropdown {
+  pointer-events: auto;
+  opacity: 1;
+  top: inherit;
+  height: inherit;
+  // @include respond-to(handhelds) { position: relative; left: 0; top: inherit; }
+  // @include respond-to(small-screens) { position: relative; left: 0; top: inherit; }
+  // @include respond-to(medium-screens) { position: relative; left: 0; top: inherit; }
+  // @include respond-to(wide-screens) { top: $navmenu-height; }
+  // @include respond-to(xwide-screens) { top: $navmenu-height; }
+}
+header .multi input:checked ~ label {
+  background: $navmenu-hover-color;
+}
+header .multi input:checked ~ label:after {
+  transform: rotateZ(90deg);
+}
+
+nav.navmenu {
+  position: absolute;
+  top: 10%;
+  background-color: $navmenu-bar-color;
+  display: inline-block;
+  z-index: 1;
+  left: 0; top:  $navmenu-height;
+  @include transition(all, 0.7s, ease-in-out);
+  // @include respond-to(handhelds) { left: 0; top:  $navmenu-height;}
+  // @include respond-to(small-screens) { left: 0; top:  $navmenu-height;}
+  // @include respond-to(medium-screens) { left: 0; top:  $navmenu-height;}
+  // @include respond-to(wide-screens) { width: 100%; left: 0; top: 0;}
+  // @include respond-to(xwide-screens) { width: 100%; left: 0; top: 0;}
+}
+
+header ul li,
+header ul li a,
+header ul li .navLabel {
+  text-align: center;
+  display: inline;
+  @include noselect();
+}
+header ul li a,
+header .navLabel,
+header ul li .navLabel,
+header .dropdown li a,
+header .dropdown li input[type="button"]
+{
+  outline: none;
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: $navmenu-height;
+  &:hover {
+    background: $navmenu-hover-color;
+    color: $navmenu-text-hover-color;
+  }
+  &.active {
+    background: $navmenu-hover-color;
+    color: $navmenu-text-hover-color;
+  }
+}
+header .multi.navRight {
+  display: inline-block;
+  @include respond-to(handhelds) { width: 30%;}
+  @include respond-to(small-screens) { width: 30%;}
+  @include respond-to(medium-screens) { width: 30%; }
+  @include respond-to(wide-screens) { width: $navmenu-width; }
+  @include respond-to(xwide-screens) { width: $navmenu-width; }
+}
+
+header .multi.navRight .dropdown {
+  position: absolute;
+}
+
+header .multi.navRight {
+  float: right;
+}
+
+header .multi .navLabel {
+  @include noselect();
+  width: 100%;
+  text-align: center;
+  &:after {
+    @include transition(all, 0.2s, ease-in-out);
+    transform: rotateZ(0deg);
+    position: absolute;
+    content: '>';
+    left: 1em;
+  }
+}
+header ul li a,
+header .multi .navLabel {
+  &:before {
+    @include transition(all, 0.1s, ease-in-out);
+    transform: rotateZ(0deg);
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    background-color: $navmenu-hover-color;
+    height: 0.04em;
+    width: 100%;
+    content: '';
+  }
+}
+
+header .dropdown li a {
+  &:before {
+    top: 3em;
+  }
+}
+
+header ul li a,
+header .dropdown li a,
+header .navLabel {
+  @include transition(all, 0.5s, ease-in-out);
+  background: $navmenu-color;
+  color: $navmenu-text-color;
+  width: 100%;
+  // @include respond-to(handhelds) { width: 100%;}
+  // @include respond-to(small-screens) { width: 100%;}
+  // @include respond-to(medium-screens) { width: 100%; }
+  // @include respond-to(wide-screens) { width: $navmenu-width; }
+  // @include respond-to(xwide-screens) { width: $navmenu-width; }
+}
+
+header .dropdown {
+  pointer-events: none;
+  display: block;
+  opacity: 0;
+  height: 0;
+  @include transition(all, 0.2s, linear);
+  // @include respond-to(handhelds) {  left: -100%; top: -200%; width: 100%; }
+  // @include respond-to(small-screens) { left: -100%; top: -200%; width: 100%; }
+  // @include respond-to(medium-screens) { left: -100%; top: -200%; width: 100%; }
+  // @include respond-to(wide-screens) {  top: 3.5em;  width: $navmenu-width; }
+  // @include respond-to(xwide-screens) { top: 3.5em; width: $navmenu-width; }
+}
+header .dropdown li a {
+  height: $navmenu-height;
+  cursor: pointer;
+}
+header .dropdown li a {
+  background: $navmenu-drop-color;
+  color: $navmenu-drop-text-color;
+  @include respond-to(handhelds) { width: 100%; display: inline-block; }
+  @include respond-to(small-screens) { width: 100%; display: inline-block; }
+  @include respond-to(medium-screens) { width: 100%; display: inline-block; }
+  @include respond-to(wide-screens) { width: 100%; }
+  @include respond-to(xwide-screens) { width: 100%; }
+}
+header .dropdown li {
+  max-height: 0;
+  overflow: hidden;
+  @include transition(max-height, 0.35s, cubic-bezier(0.175, 0.885, 0.32, 1.275));
+  z-index: 10;
+}
+
+
+header .dropdown section {
+  background-color: $navmenu-color;
+  color: $navmenu-text-color;
+  padding: 0 0 1em 0;
+}
+header .dropdown section form div {
+  display: inline-block;
+  width: 80%;
+}
+header .dropdown section h1 {
+  font-weight: 700;
+  padding-top: 1.5em;
+}
+header .dropdown section span {
+  color: red;
+}
+header .dropdown section form div label {
+  text-align: left;
+}
+header .dropdown section div {
+  width: 100%;
+}
+header .dropdown section form div input[type="text"],
+header .dropdown section form div input[type="password"],
+header .dropdown section form div input[type="email"] {
+  font-size: 1em;
+}
+header .dropdown section form div input,
+header .dropdown section form div label,
+header .dropdown section div input[type="button"] {
+  display: block;
+  width: 100%;
+  border: 0;
+  line-height: $navmenu-height/2;
+}
+header .dropdown section form div label {
+  font-size: 0.8em;
+}
+header .dropdown section form div input[type="password"] {
+  margin-bottom: 0.6em;
+}
+header .dropdown section form div input[type="submit"],
+header .dropdown section form div input[type="button"],
+header .dropdown section div input[type="button"] {
+  color: $navmenu-text-color;
+  font-size: 1em;
+  line-height: $navmenu-height/2;
+  background-color: $navmenu-hover-color;
+}
+header .dropdown section div input[type="button"] {
+  width: 80%;
+  margin: 1em 10%;
+}

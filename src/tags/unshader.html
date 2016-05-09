@@ -1,0 +1,95 @@
+<unshader>
+  <canvas id="background"></canvas>
+  <script>
+  var canvas,
+    canvasWidth,
+    canvasHeight,
+    canvasContext,
+    canvasResize,
+    rafID;
+  var self = this;
+  function resizeGlToDisplaySize(canvas){
+    var realToCSSPixels = window.devicePixelRatio || 1;
+    var displayWidth  = Math.floor(canvas.clientWidth  * realToCSSPixels);
+    var displayHeight = Math.floor(canvas.clientHeight * realToCSSPixels);
+    if (canvas.width  != displayWidth ||
+        canvas.height != displayHeight) {
+      canvas.width  = displayWidth;
+      canvas.height = displayHeight;
+    }
+  }
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  function drawBox(){
+    var border = 50;
+    canvasContext.fillStyle = 'rgba( 255, 255, 255, 0.8)';
+    canvasContext.fillRect(border, border, canvasWidth - border*2, canvasHeight - border*2);
+  }
+
+  function clearCanvas(){
+    canvasWidth = (canvas.width < 600) ? 600 : canvas.width;
+    canvasHeight = (canvas.height < 400) ? 400 : canvas.height;
+    if (canvasResize){
+       canvasResize = false;
+       canvasContext.clearRect(0,0,canvasWidth, canvasHeight);
+    }
+  }
+
+  function pixelBack(){
+    var pixelSize = 25;
+    var pixelCountX = canvasWidth/pixelSize;
+    var pixelCountY = canvasHeight/pixelSize;
+    for (var y=0;y<pixelCountY;y++){
+      for (var x=0;x<pixelCountX;x++){
+        var r = getRandomInt(0,255);
+        var g = (r < 150) ? getRandomInt(220,255) : getRandomInt(0,255);
+        canvasContext.fillStyle = 'rgb(' + r + ',' + g + ',255)';
+        canvasContext.fillRect(x*pixelSize,y*pixelSize,pixelSize,pixelSize);
+      }
+    }
+  }
+
+  function updateCanvas(){
+    if (!canvasContext) {
+       canvas = document.getElementById("background");
+       canvasContext = canvas.getContext('2d');
+       resizeGlToDisplaySize(canvas);
+       clearCanvas();
+    }
+    pixelBack();
+    //if (redraw) {
+       //drawBox();
+    //}
+    rafID = requestAnimationFrame( updateCanvas );
+  }
+
+
+  function start() {
+    if (!navigator.cancelAnimationFrame)
+        navigator.cancelAnimationFrame = navigator.webkitCancelAnimationFrame || navigator.mozCancelAnimationFrame;
+    if (!navigator.requestAnimationFrame)
+        navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
+    updateCanvas();
+  }
+  self.close = function(){
+    console.log('clear');
+  }
+  self.init = function(){
+    if (render) {
+       start();
+       app.hideLoader();
+    } else {
+       console.log('no support for webgl');
+       app.hideLoader();
+    }
+  }
+  self.on('mount', self.init);
+  self.on('unmount', self.close);
+  riot.route(function(path) {
+    if (path !== 'unshader')
+       self.unmount(true);
+  });
+  </script>
+</unshader>

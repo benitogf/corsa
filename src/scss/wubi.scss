@@ -1,0 +1,95 @@
+symbols .s_fi, wubi .s_fi {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: stretch;
+  -ms-flex-line-pack: stretch;
+  align-content: stretch;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+symbols .s_fi i, wubi .s_fi i {
+  padding: 1em;
+  -webkit-order: 0;
+  -ms-flex-order: 0;
+  order: 0;
+  -webkit-flex: 0 1 auto;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  -webkit-align-self: auto;
+  -ms-flex-item-align: auto;
+  align-self: auto;
+  &:hover {
+    font-size: 1.5em;
+    padding: 0.5em;
+    cursor: pointer;
+  }
+}
+
+wubi form.search {
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+wubi form.search input {
+  background-color: rgb(30, 30, 30);
+  color: $text-color;
+  border: medium none;
+  padding: 0.5em;
+  font-size: 1.3em;
+  width: 100%;
+  max-width: 20em;
+}
+
+.symbol_char {
+  font-size: 3em;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5em;
+}
+
+.symbol_field {
+  font-size: 0.8em;
+  margin-top: 1em;
+}
+
+.newMode {
+   display: flex;
+   justify-content: center;
+}
+
+.newModeForm {
+  @include transition(all, 0.2s, ease-in-out);
+  opacity: 0;
+  display: flex;
+}
+
+.useMode {
+   margin-top: 1em;
+   margin-left: 1em;
+   font-size: 1em;
+   display: inline-flex;
+}
+
+.useMode ul {
+   margin-left: 1em;
+}
+
+.useMode ul li {
+   padding: 0.7em;
+   background-color: rgb(30, 30, 30);
+   margin-bottom: 0.3em;
+}

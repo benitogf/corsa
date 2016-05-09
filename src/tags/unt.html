@@ -1,0 +1,24 @@
+<unt>
+  <script>
+   var self = this;
+   self.check = (render && sound);
+   if (self.check)
+      render.target = require('../lib/unt');
+   self.init = function(){
+     if (self.check) {
+        render.init();
+        render.target.init();
+        app.hideLoader();
+        } else {
+           console.log('no support for webgl or webaudio');
+           app.hideLoader();
+           }
+   }
+   self.on('mount', self.init);
+   self.on('unmount', self.close);
+   riot.route(function(path) {
+     if (path !== 'unt')
+        self.unmount(true);
+   })
+  </script>
+</unt>

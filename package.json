@@ -1,0 +1,49 @@
+{
+  "name": "corsa",
+  "version": "1.0.0",
+  "description": "corsa",
+  "main": "index.html",
+  "chromium-args": "--enable-logging --v=1",
+  "window": {
+    "transparent": true,
+    "title": "Corsa",
+    "position": "center",
+    "show": true,
+    "frame": true,
+    "toolbar": false,
+    "icon": "img/logo.png",
+    "min_width": 960,
+    "min_height": 700
+  },
+  "scripts": {
+    "linux64argb": "./platforms/nw/linux64/corsa --enable-transparent-visuals --disable-gpu",
+    "build": "browserify ./src/index.js -t [riotify --ext html] | uglifyjs >  ./www/js/index.min.js",
+    "watch": "watchify -t [riotify --ext html] ./src/index.js -o ./www/js/index.bundle.js",
+    "test": "node --harmony test/index.js",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.3.5",
+    "browserify": "^13.0.0",
+    "chokidar": "^1.4.3",
+    "express": "^4.13.4",
+    "express-compile-sass": "^3.0.4",
+    "jade": "^1.11.0",
+    "jquery": "^2.1.4",
+    "node-sass": "^3.7.0",
+    "redis": "^2.6.0-2",
+    "redis-sessions": "^1.0.4",
+    "riot": "^2.3.13",
+    "riotify": "^1.0.0",
+    "selenium-webdriver": "^2.53.2",
+    "shelljs": "^0.7.0",
+    "socket.io": "^1.4.6",
+    "socket.io-client": "^1.4.6",
+    "three": "^0.76.1",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.7.0",
+    "xml2js": "^0.4.16"
+  }
+}

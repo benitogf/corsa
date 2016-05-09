@@ -1,0 +1,15 @@
+<contact class="content">
+   <h1>Contact</h1>
+   <script>
+    var self = this;
+   self.init = function(){
+     app.hideLoader();
+   }
+   self.on('mount', self.init);
+    riot.route(function(path) {
+      if (path !== 'contact') {
+         self.unmount(true)
+      }
+    });
+   </script>
+</contact>

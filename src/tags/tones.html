@@ -1,0 +1,51 @@
+<tones class="content">
+   <h1>Tones</h1>
+   <table>
+    <thead>
+     <tr>
+      <th>Tone</th>
+      <th>Mark</th>
+      <th>Vocals</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>1</td>
+      <td>(ˉ)</td>
+      <td>ā ō ē ī ū</td>
+     </tr>
+     <tr>
+      <td>2</td>
+      <td>(ˊ)</td>
+      <td>á ó é í ú</td>
+     </tr>
+     <tr>
+      <td>3</td>
+      <td>(ˇ)</td>
+      <td>ǎ ǒ ě ǐ ǔ</td>
+     </tr>
+     <tr>
+      <td>4</td>
+      <td>(ˋ)</td>
+      <td>à ò è ì ù</td>
+     </tr>
+     <tr>
+      <td>5</td>
+      <td>El quinto tono, o tono neutral, se representa con una vocal normal sin acentos gráficos</td>
+      <td>a o e i u</td>
+     </tr>
+    </tbody>
+   </table>
+   <script>
+    var self = this;
+    this.init = function(){
+      app.hideLoader();
+    }
+    this.on('mount', this.init);
+    riot.route(function(path) {
+      if (path !== 'tones') {
+         self.unmount(true)
+      }
+    })
+   </script>
+</tones>

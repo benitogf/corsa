@@ -1,0 +1,73 @@
+doctype html
+html(xmlns='http://www.w3.org/1999/xhtml')
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    meta(http-equiv='Content-Security-Policy' content="style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' http://#{host} ws://#{host} https://#{host} wss://#{host}")
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    title= title
+    meta(name='author', content='#{author}')
+    meta(name='description', content='')
+    meta(name='keywords', content='')
+    meta(name='Resource-type', content='Document')
+    if enviroment == 'dev'
+       link(rel='stylesheet', type='text/css', href='scss/index.scss')
+    else
+       link(rel='stylesheet', type='text/css', href='css/index.css')
+    if enviroment == 'prod' && ganalytics != 'ganalytics'
+      script.
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', '#{ganalytics}', 'auto');
+        ga('send', 'pageview');
+  body
+   #appData.hidden(data-host='#{host}', data-name='#{title}')
+   #loading.loading-cont
+    .loading
+   input#navToggle(type='checkbox')
+   header.navmenu
+    label.navToggle(for='navToggle', onclick='onclick')
+      img(src="img/logo.png")
+    .multi.navRight
+      input#navToggleMulti2.multiCheck(type='checkbox')
+      label.navLabel(for='navToggleMulti2', onclick='onclick') User
+      ul.dropdown
+       li
+        section#auth
+    nav.navmenu
+     ul
+      li
+       a(href='#/', data-page='root') Home
+      li
+       a(href='#/synth', data-page='synth') Synth
+      li
+       a(href='#/unshader', data-page='unshader') Unshader
+      li
+       a(href='#/morro', data-page='morro') Morro
+      li
+       a(href='#/unt', data-page='unt') Unt
+      li
+       a(href='#/noen', data-page='noen') Noen
+      li.multi
+        input#navToggleMulti1.multiCheck(type='checkbox')
+        label.navLabel(for='navToggleMulti1', onclick='onclick') Mandarin
+        ul.dropdown
+         li
+          a(href='#/wubi', data-page='wubi') Wubi
+         li
+          a(href='#/tones', data-page='tones') Tones          
+         li
+          a(href='#/pronouns', data-page='pronouns') Pronouns
+         li
+          a(href='#/verbs', data-page='verbs') Verbs
+      li
+        a(href='#/contact', data-page='contact') contact
+   #content
+    each tag in tags
+      != '<'+tag+'></'+tag+'>'
+   script(src="cordova.js")
+   if enviroment == 'prod'
+       script(src='js/index.min.js')
+   else
+       script(src='js/index.bundle.js')
