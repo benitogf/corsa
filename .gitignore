@@ -2,5 +2,7 @@ node_modules
 npm-debug.log
 platforms/*
 plugins/*
-www/*
+www/index.html
+www/js/*
+www/css/index.css
 !.gitkeep
