@@ -104,6 +104,7 @@
       self.nextSearchTime = Date.now()+3000;
     }
     self.init = function(){
+      app.currentTag = self;
       if (!app.socket) {
         setTimeout(self.init, 500);
       } else {
@@ -112,10 +113,5 @@
       }
     }
     self.on('mount', self.init);
-    riot.route(function(path) {
-      if (path !== 'symbols') {
-         self.unmount(true)
-      }
-    })
 </script>
 </wubi>

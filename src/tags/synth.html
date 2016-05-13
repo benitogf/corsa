@@ -5,6 +5,7 @@
    if (self.check)
       render.target = require('../lib/synth');
    self.init = function(){
+     app.currentTag = self;
      if (self.check) {
         render.init();
         render.target.init(60, {x:11, z:8});
@@ -15,10 +16,5 @@
            }
    }
    self.on('mount', self.init);
-   self.on('unmount', self.close);
-   riot.route(function(path) {
-     if (path !== 'synth')
-        self.unmount(true);
-   })
   </script>
 </synth>

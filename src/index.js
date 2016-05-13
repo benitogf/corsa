@@ -30,6 +30,8 @@ var app = window.app = {
       menu.path(path);
       if (path === '' )
          path = 'root';
+      if (app.currentTag)
+         app.currentTag.unmount(true);
       riot.mount(path);
     },
     hideLoader: function() {

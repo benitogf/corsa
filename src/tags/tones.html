@@ -39,13 +39,9 @@
    <script>
     var self = this;
     this.init = function(){
+      app.currentTag = self;
       app.hideLoader();
     }
     this.on('mount', this.init);
-    riot.route(function(path) {
-      if (path !== 'tones') {
-         self.unmount(true)
-      }
-    })
    </script>
 </tones>

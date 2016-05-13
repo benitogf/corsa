@@ -69,13 +69,9 @@
    <script>
     var self = this;
     self.init = function(){
+      app.currentTag = self;
       app.hideLoader();
     }
     self.on('mount', self.init);
-    riot.route(function(path) {
-      if (path !== 'pronouns') {
-         self.unmount(true)
-      }
-    })
    </script>
 </pronouns>

@@ -5,17 +5,10 @@
   <p>(Ràng xí hé xué)</p>
   <script>
    var self = this;
-   // self.close = function(){
-   //   sound.stop();
-   // }
    self.init = function(){
+     app.currentTag = self;
      app.hideLoader();
    }
    self.on('mount', self.init);
-   //self.on('unmount', self.close);
-   riot.route(function(path) {
-     if (path !== '')
-        self.unmount(true);
-   })
   </script>
 </root>
